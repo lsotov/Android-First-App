@@ -15,7 +15,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the user interface layout for this Activity
+        // The layout file is defined in the project res/layout/main_activity.xml file
         setContentView(R.layout.activity_main);
+
+        android.os.Debug.startMethodTracing();
 
         // Get a string resource from your app's Resources
         String hello = getResources().getString(R.string.hello_world);
@@ -40,5 +44,29 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         // start the activity
         startActivity(intent);
+    }
+
+    @Override
+    //Most apps don't need to implement this method because local class references are destroyed with the activity
+    // and your activity should perform most cleanup during onPause() and onStop().
+    // However, if your activity includes background threads that you created during onCreate()
+    // or other long-running resources that could potentially leak memory if not properly closed,
+    // you should kill them during onDestroy().
+    public void onDestroy(){
+        super.onDestroy();  // Always call the superclass
+        // Stop method tracing that the activity started during onCreate()
+        android.os.Debug.stopMethodTracing();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+        // Release the Camera because we don't need it when paused
+        // and other activities might need to use it.
+        //if (mCamera != null) {
+            //mCamera.release();
+            //mCamera = null;
+        //}
     }
 }
