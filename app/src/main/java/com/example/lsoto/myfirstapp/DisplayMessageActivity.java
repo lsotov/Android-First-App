@@ -17,6 +17,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // get the data by key
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        if (message == null) {
+            message = "You didn't supplied a message";
+        }
+
         // create a text view
         TextView textView = new TextView(this);
         textView.setTextSize(40);
