@@ -1,6 +1,7 @@
 package com.example.lsoto.myfirstapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
         String hello = getResources().getString(R.string.hello_world);
         // Write a Log
         Log.d(MainActivity.class.getSimpleName(), hello);
+        // Checking system version at runtime
+        // e.g. Make sure we're running on Honeycomb or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+            Log.d("Checking Version", "At least HoneyComb");
+        }
     }
 
     /** Called when the user clicks the Send button */
